@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= producto ? 'Editar ' : 'Crear ' %> Producto</title>
+</head>
+<body>
+    <h1>Formulario <%= producto ? 'Editar ' : 'Crear ' %> Producto</h1>
+
+    <!-- Si hay un producto, la acción será para actualizar; si no, será para crear -->
+    <form action="<%= producto ? '/post/update/' + producto.idproducto : '/post/store' %>" method="POST">
+        
+        <!-- Nombre del producto -->
+        <label for="nombre">Nombre del producto:</label>
+        <input type="text" id="nombre" name="nombre" value="<%= producto ? producto.nombre : '' %>" required>
+        <br>
+
+        <!-- Stock -->
+        <label for="stock">Stock:</label>
+        <input type="number" id="stock" name="stock" value="<%= producto ? producto.stock : '' %>" required>
+        <br>
+
+        <!-- Precio -->
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio" name="precio" step="0.01" value="<%= producto ? producto.precio : '' %>" required>
+        <br>
+
+        <!-- Estado -->
+        <label for="estado">Estado:</label>
+        <select name="estado" id="estado" required>
+            <option value="activo" <%= producto && producto.estado === 'activo' ? 'selected' : '' %>>Activo</option>
+            <option value="inactivo" <%= producto && producto.estado === 'inactivo' ? 'selected' : '' %>>Inactivo</option>
+        </select>
+        <br>
+
+        <!-- Categoría -->
+        <label for="idcategoria">Categoría:</label>
+        <select name="idcategoria" id="idcategoria" required>
+            <!-- Aquí debes cargar las categorías desde la base de datos -->
+            <option value="1" <%= producto && producto.idcategoria == 1 ? 'selected' : '' %>>Categoría 1</option>
+            <option value="2" <%= producto && producto.idcategoria == 2 ? 'selected' : '' %>>Categoría 2</option>
+            <!-- Agrega más categorías dinámicamente según lo necesites -->
+        </select>
+        <br>
+
+        <!-- Botón de submit -->
+        <button type="submit"><%= producto ? 'Actualizar' : 'Crear' %> Producto</button>
+    </form>
+
+</body>
+</html>
